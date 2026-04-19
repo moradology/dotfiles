@@ -83,8 +83,20 @@ TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins/" "$HOME/.tmux/plugins/tpm/bin/ins
 
 # --- macOS preferences ---
 echo "Configuring macOS..."
+# Dock: small icons
 defaults write com.apple.dock tilesize -int 24
 killall Dock || true
+
+# Disable "Swipe between pages" two-finger horizontal gesture so BetterTouchTool
+# can capture 2-finger swipes for tmux window navigation.
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
+
+# Trackpad: ensure 3-finger drag is off (interferes with BTT 3-finger gestures).
+# Comment out if you rely on 3-finger drag.
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false
+
+# Note: trackpad defaults usually need a logout/login to fully apply.
 
 # --- Load user LaunchAgents (e.g. capslock → ctrl remap) ---
 if [ -d "$HOME/Library/LaunchAgents" ]; then

@@ -1,0 +1,28 @@
+[user]
+	name = Nathan Zimmerman
+	email = npzimmerman@gmail.com
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[core]
+	editor = nvim
+
+[color]
+	ui = auto
+
+[rerere]
+	enabled = true
+
+[alias]
+	s = status -sb
+	l = log --oneline --graph --decorate -20
+	co = checkout
+	br = branch
+	d = diff
