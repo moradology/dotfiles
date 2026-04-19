@@ -41,6 +41,7 @@ brew install \
     starship \
     tmux \
     tokei \
+    uv \
     websocat \
     wget \
     yt-dlp \
