@@ -86,6 +86,15 @@ echo "Configuring macOS..."
 defaults write com.apple.dock tilesize -int 24
 killall Dock || true
 
+# --- Load user LaunchAgents (e.g. capslock → ctrl remap) ---
+if [ -d "$HOME/Library/LaunchAgents" ]; then
+    for agent in "$HOME"/Library/LaunchAgents/com.local.*.plist; do
+        [ -f "$agent" ] || continue
+        echo "Loading $agent..."
+        launchctl load -w "$agent" 2>/dev/null || true
+    done
+fi
+
 echo ""
 echo "=== Done ==="
 echo "Next steps:"
