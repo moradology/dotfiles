@@ -12,6 +12,7 @@ Managed with [chezmoi](https://chezmoi.io). Source lives at `~/.local/share/chez
 | `dot_config/starship.toml` | `~/.config/starship.toml` | Prompt |
 | `run_once_bootstrap.sh` | runs once on `chezmoi apply` | Installs packages |
 | `remote/hermes.tmux.conf` | *(not deployed locally)* | Reference copy of hermes tmux config, ignored by chezmoi |
+| `btt/Default.bttpreset` | *(not deployed directly)* | BetterTouchTool preset; bootstrap `open`s it to trigger BTT import dialog |
 
 ## Day-to-day
 

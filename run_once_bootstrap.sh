@@ -107,6 +107,13 @@ if [ -d "$HOME/Library/LaunchAgents" ]; then
     done
 fi
 
+# --- Import BetterTouchTool preset (gestures) ---
+BTT_PRESET="$HOME/.local/share/chezmoi/btt/Default.bttpreset"
+if [ -f "$BTT_PRESET" ] && [ -d "/Applications/BetterTouchTool.app" ]; then
+    echo "Opening BTT preset for import (confirm import in the BTT dialog)..."
+    open -a BetterTouchTool "$BTT_PRESET" || true
+fi
+
 echo ""
 echo "=== Done ==="
 echo "Next steps:"
