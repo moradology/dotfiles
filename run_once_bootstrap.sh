@@ -1,7 +1,7 @@
 #!/bin/bash
-# Bootstrap script for a fresh Mac
-# Run with: curl -fsS <raw-gist-url> | bash
-# Or just: bash bootstrap.sh
+# Bootstrap script for a fresh Mac.
+# One-liner on a clean machine:
+#   sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply moradology/dotfiles
 
 set -e
 
@@ -49,7 +49,9 @@ brew install \
 # --- Casks ---
 echo "Installing casks..."
 brew install --cask \
-    font-jetbrains-mono-nerd-font
+    font-jetbrains-mono-nerd-font \
+    kitty \
+    bettertouchtool
 
 # --- Set Fish as default shell ---
 FISH_PATH="$(which fish)"
@@ -70,20 +72,24 @@ fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/fun
 echo "Starting atuin daemon..."
 brew services start atuin
 
+# --- Tmux Plugin Manager + plugins ---
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "Installing TPM..."
+    git clone --depth=1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+echo "Installing tmux plugins..."
+TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins/" "$HOME/.tmux/plugins/tpm/bin/install_plugins" || true
+
 # --- macOS preferences ---
 echo "Configuring macOS..."
-# Dock: small icons
 defaults write com.apple.dock tilesize -int 24
-killall Dock
-
-# --- Dotfiles via chezmoi ---
-# Uncomment and set your repo once you've pushed your dotfiles:
-# chezmoi init --apply your-github-user/dotfiles
+killall Dock || true
 
 echo ""
 echo "=== Done ==="
 echo "Next steps:"
 echo "  1. Open Kitty (not Terminal.app)"
-echo "  2. Generate SSH keys: ssh-keygen -t ed25519"
-echo "  3. Push dotfiles: cd ~/.local/share/chezmoi && git remote add origin <repo> && git push"
-echo "  4. On future machines: chezmoi init --apply your-github-user/dotfiles"
+echo "  2. Generate an SSH key for GitHub:   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_github"
+echo "  3. Add the public key at https://github.com/settings/keys"
+echo "  4. For remote hosts (e.g. hermes), run ssh-copy-id once per host"
+echo "  5. Launch BetterTouchTool and import your gesture config (not tracked in dotfiles)"

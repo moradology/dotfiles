@@ -35,5 +35,16 @@ ssh -o RemoteCommand=none hermes 'tmux source-file ~/.tmux.conf'
 ## Bootstrap on a fresh machine
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply <your-github-username>/dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply moradology/dotfiles
 ```
+
+This installs chezmoi, clones this repo, writes all files to their home-dir locations, then runs `run_once_bootstrap.sh` (Homebrew + formulae + casks + fish + TPM + tmux plugins + macOS tweaks).
+
+## What's intentionally NOT tracked
+
+- `~/.ssh/` — private keys and host-specific config (hermes IP). Regenerate per machine.
+- `~/.config/gh/` — contains OAuth tokens. Re-run `gh auth login` per machine.
+- `~/.config/chezmoi/` — chezmoi's own state DB.
+- `~/.config/uv/` — uv package manager metadata.
+- BetterTouchTool gesture config — export from BTT manually if needed.
+- `~/.gitconfig` — not currently tracked; set via bootstrap or manually.
