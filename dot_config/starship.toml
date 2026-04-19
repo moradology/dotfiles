@@ -1,0 +1,57 @@
+# Timeout for commands that starship runs (ms)
+command_timeout = 1000
+
+# Newline between prompt lines
+add_newline = true
+
+# Prompt format — only show what matters
+format = """
+$hostname$directory$git_branch$git_status$rust$nodejs$python$elixir$docker_context$cmd_duration
+$character"""
+
+# The cursor line — green on success, red on error
+[character]
+success_symbol = "[>](bold green)"
+error_symbol = "[>](bold red)"
+
+# Only show hostname when on SSH (the thin-client signal)
+[hostname]
+ssh_only = true
+format = "[$hostname](bold yellow) "
+
+# Current directory — truncate to 3 levels deep
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+
+# Git branch
+[git_branch]
+format = "on [$branch]($style) "
+style = "bold purple"
+
+# Git status — compact symbols
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold red"
+
+# Show command duration if it took more than 2 seconds
+[cmd_duration]
+min_time = 2000
+format = "took [$duration](bold yellow)"
+
+# Languages — only show when relevant files are present
+[rust]
+format = "via [$symbol($version)]($style) "
+
+[nodejs]
+format = "via [$symbol($version)]($style) "
+
+[python]
+format = "via [$symbol($version)]($style) "
+
+[elixir]
+format = "via [$symbol($version)]($style) "
+
+[docker_context]
+format = "via [$symbol$context]($style) "
