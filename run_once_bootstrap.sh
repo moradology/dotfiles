@@ -96,6 +96,18 @@ defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false
 
+# Disable macOS "Select previous/next input source" hotkeys (defaults Ctrl+Space
+# and Cmd+Option+Space). Frees Ctrl+Space for tmux prefix use.
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 '{
+  enabled = 0;
+  value = { parameters = (32, 49, 262144); type = "standard"; };
+}'
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 '{
+  enabled = 0;
+  value = { parameters = (32, 49, 786432); type = "standard"; };
+}'
+killall cfprefsd 2>/dev/null || true
+
 # Note: trackpad defaults usually need a logout/login to fully apply.
 
 # --- Load user LaunchAgents (e.g. capslock → ctrl remap) ---
