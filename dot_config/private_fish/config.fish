@@ -1,5 +1,10 @@
 export PATH="$HOME/.local/bin:$PATH"
 
+# Rust toolchain (cargo, rustc, rustup) — set up by rustup-init
+if test -f ~/.cargo/env.fish
+    source ~/.cargo/env.fish
+end
+
 if status is-interactive
     # Auto-attach tmux for interactive SSH/mosh logins.
     # Skipped for local terminals ($SSH_CONNECTION unset) and non-interactive ssh cmd.
